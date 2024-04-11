@@ -1,5 +1,6 @@
 package com.master.backend.catogory;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.master.backend.product.Product;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -17,5 +18,6 @@ public class Category {
     private String name;
 
     @OneToMany(mappedBy = "category")
+    @JsonBackReference
     private List<Product> products;
 }

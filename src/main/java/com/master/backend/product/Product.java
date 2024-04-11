@@ -21,18 +21,25 @@ public class Product {
     private String name;
     private float price;
     private String description;
+    private int quantity;
     private boolean isFeatured;
 
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<Image> images;
 
-    @OneToMany(mappedBy = "product")
-    private List<Size> sizes;
-
-    @OneToMany(mappedBy = "product")
+    @ManyToMany
+    @JoinTable(name = "product_color",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "color_id"))
     private List<Color> colors;
+
+    @ManyToMany
+    @JoinTable(name = "product_size",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "size_id"))
+    private List<Size> sizes;
 }

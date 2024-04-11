@@ -1,8 +1,11 @@
 package com.master.backend.size;// Size.java
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.master.backend.product.Product;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Entity
 @Getter
@@ -14,7 +17,7 @@ public class Size {
     private String name;
     private String value;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id", nullable = false)
-    private Product product;
+    @ManyToMany(mappedBy = "sizes")
+    @JsonBackReference
+    private List<Product> products;
 }

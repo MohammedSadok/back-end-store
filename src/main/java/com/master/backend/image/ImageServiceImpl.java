@@ -24,4 +24,5 @@ public class ImageServiceImpl implements ImageService {
     public Image createImage(Image image) {
         return imageRepository.save(image);
     }
+
 }
