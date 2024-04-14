@@ -1,5 +1,6 @@
 package com.master.backend.handler;
 
+import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -53,5 +54,18 @@ public class GlobalExceptionHandler {
                         .error(exception.getMessage())
                         .build());
     }
+
+    @ExceptionHandler(ExpiredJwtException.class)
+    public ResponseEntity<ExceptionResponse> handleException(ExpiredJwtException exception) {
+        return ResponseEntity
+                .status(UNAUTHORIZED)
+                .body(ExceptionResponse
+                        .builder()
+                        .businessExceptionDescription("Token has being expired !")
+                        .error(exception.getMessage())
+                        .build());
+    }
+
+
 
 }

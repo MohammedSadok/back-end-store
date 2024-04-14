@@ -2,8 +2,6 @@ package com.master.backend.auth;
 
 import com.master.backend.role.RoleRepository;
 import com.master.backend.security.JwtService;
-import com.master.backend.user.Token;
-import com.master.backend.user.TokenRepository;
 import com.master.backend.user.User;
 import com.master.backend.user.UserRepository;
 import jakarta.mail.MessagingException;
@@ -15,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -23,7 +20,6 @@ public class AuthenticationService {
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
-    private final TokenRepository tokenRepository;
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
 
@@ -38,14 +34,12 @@ public class AuthenticationService {
                 .password(passwordEncoder.encode(request.getPassword()))
                 .roles(List.of(userRole))
                 .build();
-
         userRepository.save(user);
-
     }
 
 
-
     public AuthenticationResponse login(AuthenticationRequest request) {
+
         var auth = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
@@ -53,23 +47,15 @@ public class AuthenticationService {
                 )
         );
 
-        var claims = new HashMap<String , Object>();
-        var user = ((User)auth.getPrincipal());
+        var claims = new HashMap<String, Object>();
+        var user = ((User) auth.getPrincipal());
         claims.put("fullName", user.fullName());
         var jwtToken = jwtService.generateToken(user);
-        saveUserToken(user, jwtToken);
         return AuthenticationResponse.builder()
                 .accessToken(jwtToken)
                 .build();
 
     }
 
-    private void saveUserToken(User user, String jwtToken) {
-        var token = Token.builder()
-                .user(user)
-                .token(jwtToken)
-                .build();
-        tokenRepository.save(token);
-    }
 
 }
