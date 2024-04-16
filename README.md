@@ -18,8 +18,6 @@ This API serves as the backend for an eCommerce application, providing secure ac
 - JSON Web Tokens (JWT)
 - Hibernate/JPA
 - RESTful API
-- MySQL/PostgreSQL (or your preferred database)
-- [Any other technologies/frameworks used in your project]
 
 ## How to Use:
 
