@@ -1,5 +1,6 @@
 package com.master.backend.order;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.master.backend.orderItem.OrderItem;
 import com.master.backend.user.User;
 import jakarta.persistence.*;
@@ -26,8 +27,9 @@ public class Order {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonBackReference
     private User user;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order",cascade = CascadeType.ALL)
     private List<OrderItem> orderItems;
 }

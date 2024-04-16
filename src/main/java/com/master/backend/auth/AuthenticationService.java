@@ -1,6 +1,5 @@
 package com.master.backend.auth;
 
-import com.master.backend.role.RoleRepository;
 import com.master.backend.security.JwtService;
 import com.master.backend.user.User;
 import com.master.backend.user.UserRepository;
@@ -12,12 +11,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
-    private final RoleRepository roleRepository;
+
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
     private final AuthenticationManager authenticationManager;
@@ -25,14 +23,11 @@ public class AuthenticationService {
 
 
     public void register(RegistrationRequest request) throws MessagingException {
-        var userRole = roleRepository.findByName("USER")
-                .orElseThrow(() -> new IllegalStateException("ROLE USER was not initialised"));
         var user = User.builder()
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .roles(List.of(userRole))
                 .build();
         userRepository.save(user);
     }

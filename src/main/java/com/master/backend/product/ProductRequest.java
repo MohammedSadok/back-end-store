@@ -1,10 +1,12 @@
 package com.master.backend.product;
 
 import jakarta.validation.constraints.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.URL;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import java.util.List;
 
@@ -27,7 +29,6 @@ public class ProductRequest {
     @PositiveOrZero(message = "Quantity must be a positive number or zero")
     private int quantity;
 
-    @NotEmpty(message = "Product isFeatured is required!")
     @NotBlank(message = "Product isFeatured should not be empty!")
     private boolean isFeatured;
 

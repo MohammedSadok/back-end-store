@@ -1,8 +1,10 @@
 package com.master.backend.product;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.master.backend.catogory.Category;
 import com.master.backend.color.Color;
 import com.master.backend.image.Image;
+import com.master.backend.orderItem.OrderItem;
 import com.master.backend.size.Size;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -30,6 +32,10 @@ public class Product {
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<Image> images;
+
+    @OneToMany(mappedBy = "product")
+    @JsonBackReference
+    private List<OrderItem> orderItems;
 
     @ManyToMany
     @JoinTable(name = "product_color",
