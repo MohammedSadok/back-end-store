@@ -56,15 +56,15 @@ public class JwtService {
             Map<String, Objects> claims,
             UserDetails userDetails,
             long jwtExpiration) {
-        var authorities = userDetails.getAuthorities()
-                .stream().map(GrantedAuthority::getAuthority).toList();
+//        var authorities = userDetails.getAuthorities()
+//                .stream().map(GrantedAuthority::getAuthority).toList();
         return Jwts
                 .builder()
                 .setClaims(claims)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + jwtExpiration))
-                .claim("authorities", authorities)
+//                .claim("authorities", authorities)
                 .signWith(getSignInKey())
                 .compact();
     }
