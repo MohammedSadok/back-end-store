@@ -13,12 +13,9 @@ import lombok.Setter;
 @Builder
 public class RegistrationRequest {
 
-    @NotEmpty(message = "firstName is required !")
-    @NotBlank(message = "firstName is required !")
-    private String firstName;
-    @NotEmpty(message = "lastName is required !")
-    @NotBlank(message = "lastName is required !")
-    private String lastName;
+    @NotEmpty(message = "userName is required !")
+    @NotBlank(message = "userName is required !")
+    private String userName;
     @Email(message = "Email is not valid !")
     @NotEmpty(message = "email is required !")
     @NotBlank(message = "email is required !")

@@ -28,8 +28,7 @@ public class User implements UserDetails, Principal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String firstName;
-    private String lastName;
+    private String userName;
     private LocalDate dateOfBirth;
     @Column(unique = true)
     private String email;
@@ -90,9 +89,6 @@ public class User implements UserDetails, Principal {
         return true;
     }
 
-    public String fullName() {
-        return firstName + " " + lastName;
-    }
 
 
 }

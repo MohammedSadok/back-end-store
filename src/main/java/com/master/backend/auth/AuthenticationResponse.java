@@ -9,6 +9,9 @@ import lombok.Setter;
 @Setter
 @Builder
 public class AuthenticationResponse {
+    private int id;
+    private String userName;
+    private String mail;
     @JsonProperty("access_token")
     private String accessToken;
 }

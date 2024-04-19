@@ -24,8 +24,7 @@ public class AuthenticationService {
 
     public void register(RegistrationRequest request) throws MessagingException {
         var user = User.builder()
-                .firstName(request.getFirstName())
-                .lastName(request.getLastName())
+                .userName(request.getUserName())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .build();
@@ -44,10 +43,13 @@ public class AuthenticationService {
 
         var claims = new HashMap<String, Object>();
         var user = ((User) auth.getPrincipal());
-        claims.put("fullName", user.fullName());
+        claims.put("fullName", user.getUsername());
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder()
                 .accessToken(jwtToken)
+                .id(user.getId())
+                .userName(user.getUsername())
+                .mail(user.getEmail())
                 .build();
 
     }
