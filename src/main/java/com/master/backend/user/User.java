@@ -1,6 +1,6 @@
 package com.master.backend.user;
 
-import com.master.backend.order.Order;
+import com.master.backend.api.order.Order;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
